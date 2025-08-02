@@ -1,0 +1,9 @@
+.video-carousel {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.carousel .slide video {
+  max-height: 300px;
+  object-fit: cover;
+}
