@@ -1,4 +1,5 @@
 import React from "react";
+import VideoCarousel from './VideoCarousel';
 import styles from "./about.module.css";
 import Step1Icon from "./icons/Step1Icon";
 import Step2Icon from "./icons/Step2Icon";
@@ -6,6 +7,19 @@ import Step3Icon from "./icons/Step3Icon";
 
 const About = () => {
   return (
+    <>
+     {/* <div className="home-container">
+      <div className="home-text">
+        <h1>Connecting <span style={{ color: "#805AD5" }}>buyers and sellers</span>,one bid at a time.</h1>
+        <p>The value of anything is what someone is willing to bid.</p>
+      </div>
+      <div className="home-video">
+        <VideoCarousel />
+      </div>
+    </div> */}
+
+
+ {/* below section is for about */}
     <section className={styles.biddingContainer}>
       <h2 className={styles.title}>How Bidding Works</h2>
       <p className={styles.introText}>
@@ -32,6 +46,8 @@ const About = () => {
         </div>
       </div>
     </section>
+    
+    </>
   );
 };
 
