@@ -1,0 +1,171 @@
+.contactSection {
+  width: 100%;
+  margin-left: 0;
+  margin: 0;
+  height: fit-content;
+  padding: 20px 5px 0 5px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 80px;
+  padding-bottom: 16px;
+  justify-content: flex-start;
+  background: linear-gradient(to right, #e0f7fa, #f1f8ff);
+}
+
+.contactContainer {
+  background: linear-gradient(to right, #e0f7fa, #f1f8ff);
+  border: 4px dashed rgba(116, 116, 116, 0.388);
+  margin: 0 auto;
+  width: 60%;
+  height: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  justify-content: center;
+  border-radius: 24px;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.contactTitle {
+  color: #d6482b;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 480px) {
+  .contactTitle {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .contactTitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contactTitle {
+    font-size: 1.875rem;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.formInput {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  border-radius: 6px;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #d6482b;
+  box-shadow: 0 0 0 2px rgba(214, 72, 43, 0.5);
+}
+
+.formTextarea {
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  border-radius: 6px;
+  min-height: 120px;
+}
+
+.formTextarea:focus {
+  outline: none;
+  border-color: #d6482b;
+  box-shadow: 0 0 0 2px rgba(214, 72, 43, 0.5);
+}
+
+.submitButton {
+  background-color: #d6482b;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  padding: 4px 16px;
+  border-radius: 6px;
+  color: white;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #b8381e;
+}
+
+.errorInput {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
+}
+
+.errorText {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+/* Add these to your existing CSS */
+.charCounter {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: right;
+  margin-top: 0.25rem;
+}
+
+.errorInput {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
+}
+
+.errorText {
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Enhance existing styles */
+.formInput, .formTextarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.formInput:focus, .formTextarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+}

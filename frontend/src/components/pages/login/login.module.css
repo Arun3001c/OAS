@@ -7,7 +7,8 @@
   justify-content: center;
   align-items: center;
   min-height: 100%;
-  background: linear-gradient(to right, #e0f7fa, #f1f8ff);  padding: 20px;
+  background: linear-gradient(to right, #e0f7fa, #f1f8ff);
+  padding: 20px;
   font-family: 'Inter', sans-serif;
 }
 
