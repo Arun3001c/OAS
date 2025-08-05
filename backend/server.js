@@ -1,3 +1,4 @@
+// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,12 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Connect MongoDB
 mongoose.connect(process.env.DB_CONNECTION_STRING)
-  .then(() => console.log('✅ Connected to MongoDB Atlas (myAppDB)'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.error('❌ MongoDB Error:', err.message));
 
+// Routes
 app.use('/api', require('./routes/auth'));
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`🚀 Server running on port ${process.env.PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

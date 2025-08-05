@@ -12,7 +12,8 @@ import Dashboard from './components/pages/Dashboard/dashboard.jsx';
 import { useAuth } from './context/AuthContext.jsx';
 
 function App() {
-  const { isLoggedIn, logout } = useAuth();
+  const { user, logout } = useAuth();
+  const isLoggedIn = !!user;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,16 +25,21 @@ function App() {
     <div className="App">
       <div className="navbar-container">
         <img src={AuctionLogo} alt="Auction Logo" />
-        <Link to="/">Home +</Link>
+        <Link to="/">Home</Link>
         <Link to="/about">About</Link>
-        <Link to="/auctions">Auctions+</Link>
+        <Link to="/auctions">Auctions</Link>
         <Link to="/contact">Contact</Link>
         <div className="flex-spacer" />
 
         {isLoggedIn ? (
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
+          <>
+            {/* <span style={{ marginRight: '10px', fontWeight: 'bold' }}>
+              {user?.name?.split(' ')[0]}
+            </span> */}
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          </>
         ) : (
           <Link to="/login">
             <img src={personIcon} alt="Login" className="login-icon" />

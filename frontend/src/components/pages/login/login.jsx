@@ -1,4 +1,3 @@
-// src/components/pages/login/login.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +26,8 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const API = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -38,9 +39,7 @@ const Login = () => {
 
   const handleSendOTP = async () => {
     try {
-      await axios.post('http://localhost:5000/api/forgot-password', {
-        email: formData.email
-      });
+      await axios.post(`${API}/forgot-password`, { email: formData.email });
       setOtpSent(true);
       setMessage('OTP has been sent to your email');
     } catch (error) {
@@ -51,7 +50,7 @@ const Login = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/reset-password', {
+      await axios.post(`${API}/reset-password`, {
         email: formData.email,
         otp: formData.otp,
         newPassword: formData.newPassword
@@ -74,24 +73,25 @@ const Login = () => {
           return;
         }
 
-       await axios.post('http://localhost:5000/api/register', {
-  name: formData.name,
-  email: formData.email,
-  password: formData.password
-});
+        await axios.post(`${API}/register`, {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        });
 
         setMessage('Verification code sent to your email.');
         setVerificationPending(true);
         setActiveForm('verify');
+
       } else if (activeForm === 'login') {
-        const res = await axios.post('http://localhost:5000/api/login', {
+        const res = await axios.post(`${API}/login`, {
           email: formData.email,
           password: formData.password
         });
 
         setMessage('Login successful!');
         localStorage.setItem('token', res.data.token);
-        login();
+        login(res.data.token); 
         navigate('/dashboard');
       }
     } catch (error) {
@@ -102,7 +102,7 @@ const Login = () => {
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/verify-otp', {
+      await axios.post(`${API}/verify-otp`, {
         email: formData.email,
         otp: formData.otp
       });
@@ -111,6 +111,15 @@ const Login = () => {
       setActiveForm('login');
     } catch (error) {
       setMessage(error.response?.data?.message || 'OTP verification failed');
+    }
+  };
+
+  const handleResendOTP = async () => {
+    try {
+      await axios.post(`${API}/resend-otp`, { email: formData.email });
+      setMessage('New OTP sent to your email');
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Failed to resend OTP');
     }
   };
 
@@ -190,6 +199,7 @@ const Login = () => {
                 <input type="text" name="otp" value={formData.otp} onChange={handleChange} required />
               </div>
               <button type="submit" className={styles.primaryButton}>VERIFY</button>
+              <button type="button" onClick={handleResendOTP} className={styles.secondaryButton}>RESEND OTP</button>
               {message && <div className={styles.message}>{message}</div>}
             </form>
           </div>

@@ -1,9 +1,10 @@
+// backend/models/otp.js
 const mongoose = require('mongoose');
 
 const otpSchema = new mongoose.Schema({
   email: String,
   code: String,
-  expiresAt: Date
+  expiresAt: Date,
 });
 
 module.exports = mongoose.model('Otp', otpSchema);
