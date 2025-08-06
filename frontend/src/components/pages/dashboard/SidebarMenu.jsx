@@ -1,4 +1,5 @@
 import React from 'react';
+import contact from '../contact/contact.jsx';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -10,6 +11,7 @@ import {
   FiChevronRight,
   FiLogOut
 } from 'react-icons/fi';
+import { FiMail } from 'react-icons/fi';
 // import "react-pro-sidebar/dist/css/react-pro-sidebar.css";
 // import 'react-pro-sidebar/dist/styles.css';
 import styles from './Dashboard.module.css';
@@ -66,6 +68,13 @@ const SidebarMenu = ({ collapsed, isMobileOpen, onCollapse }) => {
           component={<Link to="/dashboard/profile" className={styles.menuLink} />}
         >
           Profile
+        </MenuItem>
+        <MenuItem 
+            icon={<FiMail />}
+            active={location.pathname === 'D:\know\practice\OAS\frontend\src\components\pages\contact\contact.jsx'}
+            component={<Link to={{contact}} className={styles.menuLink} />}
+          >
+            Contact
         </MenuItem>
       </Menu>
 
