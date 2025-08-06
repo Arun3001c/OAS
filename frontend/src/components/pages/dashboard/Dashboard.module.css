@@ -1,0 +1,352 @@
+/* Reset and Base Styles */
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Color Variables */
+:root {
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --primary-light: #eef2ff;
+  --secondary: #3f37c9;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --white: #ffffff;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+  --sidebar-width: 250px;
+  --sidebar-collapsed-width: 80px;
+  --top-nav-height: 70px;
+}
+
+/* Dashboard Layout */
+.dashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--light);
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Main Content Area */
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.sidebarCollapsed .mainContent {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+.pageContent {
+  padding: 2rem;
+  overflow-y: auto;
+  height: calc(100vh - var(--top-nav-height));
+  background-color: var(--light);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background-color: var(--primary);
+  color: var(--white);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebarCollapsed .sidebar {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  height: var(--top-nav-height);
+  min-height: var(--top-nav-height);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebarHeader h3 {
+  color: white;
+  margin-left: 0.75rem;
+  margin-bottom: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.sidebarCollapsed .sidebarHeader h3 {
+  opacity: 0;
+  width: 0;
+}
+
+.collapseButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Menu Items */
+.menuContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  margin: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+.menuItem.active {
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+.menuIcon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuText {
+  transition: opacity 0.3s ease;
+}
+
+.sidebarCollapsed .menuText {
+  opacity: 0;
+  width: 0;
+  display: none;
+}
+
+/* Sidebar Footer */
+.sidebarFooter {
+  padding: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--white);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.logoutButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.logoutText {
+  margin-left: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+
+.sidebarCollapsed .logoutText {
+  opacity: 0;
+  width: 0;
+}
+
+/* Top Navbar Styles */
+.topNavbar {
+  position: sticky;
+  top: -1px;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background-color: var(--white);
+  padding: 0 2rem;
+  height: var(--top-nav-height);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+.navContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 500px;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.searchBar input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 1rem;
+}
+
+.userName {
+  font-weight: 500;
+  color: var(--dark);
+}
+
+.avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Mobile Menu Toggle */
+.mobileMenuToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--dark);
+  margin-right: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.mobileMenuToggle:hover {
+  background-color: var(--light-gray);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Browser Specific Fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .topNavbar {
+    top: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+@supports (-moz-appearance: none) {
+  .topNavbar {
+    top: -0.1px;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0 !important;
+  }
+  
+  .mobileMenuToggle {
+    display: block;
+  }
+  
+  .searchBar {
+    margin-left: 1rem;
+  }
+}
+
+/* Ensure no pseudo-element gaps */
+body::before,
+body::after,
+.topNavbar::before,
+.topNavbar::after {
+  content: none !important;
+  display: none !important;
+}
