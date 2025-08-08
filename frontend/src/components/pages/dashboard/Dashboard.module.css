@@ -1,352 +1,229 @@
-/* Reset and Base Styles */
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-x: hidden;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Color Variables */
 :root {
-  --primary: #4361ee;
-  --primary-dark: #3a56d4;
-  --primary-light: #eef2ff;
-  --secondary: #3f37c9;
-  --light: #f8f9fa;
-  --dark: #212529;
-  --gray: #6c757d;
-  --light-gray: #e9ecef;
-  --white: #ffffff;
-  --success: #4cc9f0;
-  --danger: #f72585;
-  --warning: #f8961e;
-  --sidebar-width: 250px;
-  --sidebar-collapsed-width: 80px;
+  --primary: #3b82f6;
+  --sidebar-width: 280px;
+  --sidebar-collapsed: 80px;
   --top-nav-height: 70px;
+  --transition: all 0.3s ease;
 }
 
-/* Dashboard Layout */
-.dashboardContainer {
+/* Top Navbar */
+.topNavbar {
   display: flex;
-  min-height: 100vh;
-  background-color: var(--light);
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-/* Main Content Area */
-.mainContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: var(--sidebar-width);
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 1;
-}
-
-.sidebarCollapsed .mainContent {
-  margin-left: var(--sidebar-collapsed-width);
-}
-
-.pageContent {
-  padding: 2rem;
-  overflow-y: auto;
-  height: calc(100vh - var(--top-nav-height));
-  background-color: var(--light);
-}
-
-/* Sidebar Styles */
-.sidebar {
-  width: var(--sidebar-width);
-  height: 100vh;
-  position: fixed;
-  left: 0;
+  align-items: center;
+  height: var(--top-nav-height);
+  padding: 0 1.5rem;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
   top: 0;
   z-index: 100;
-  background-color: var(--primary);
-  color: var(--white);
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  gap: 1.5rem;
 }
 
-.sidebarCollapsed .sidebar {
-  width: var(--sidebar-collapsed-width);
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 140px;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 600px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.mainNav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.navIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.navIcon:hover {
+  color: var(--primary);
+  background: #f1f5f9;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.menuButton:hover {
+  background: #f1f5f9;
+  color: var(--primary);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background: white;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  transition: var(--transition);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed);
 }
 
 .sidebarHeader {
+  padding: 1.5rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 1.25rem;
-  height: var(--top-nav-height);
-  min-height: var(--top-nav-height);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.sidebarHeader h3 {
-  color: white;
-  margin-left: 0.75rem;
-  margin-bottom: 0;
-  white-space: nowrap;
-  transition: opacity 0.3s ease;
+.brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
 }
 
-.sidebarCollapsed .sidebarHeader h3 {
-  opacity: 0;
-  width: 0;
+.sidebarControls {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.collapseButton {
-  background: none;
+.collapseButton, .closeButton {
+  background: #f1f5f9;
   border: none;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  min-width: 40px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.collapseButton:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.collapseButton:hover, .closeButton:hover {
+  background: #e2e8f0;
 }
 
 /* Menu Items */
 .menuContainer {
   flex: 1;
-  overflow-y: auto;
-  padding: 0.5rem 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .menuItem {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1.25rem;
-  margin: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: #334155;
+  text-decoration: none;
+  transition: var(--transition);
 }
 
 .menuItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--white);
-}
-
-.menuItem.active {
-  background-color: var(--white);
+  background: #f1f5f9;
   color: var(--primary);
 }
 
 .menuIcon {
-  margin-right: 0.75rem;
-  font-size: 1.25rem;
   min-width: 24px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.menuText {
-  transition: opacity 0.3s ease;
-}
-
-.sidebarCollapsed .menuText {
-  opacity: 0;
-  width: 0;
-  display: none;
-}
-
-/* Sidebar Footer */
+/* Footer */
 .sidebarFooter {
   padding: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #f1f5f9;
 }
 
 .logoutButton {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 1rem;
   width: 100%;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+  background: none;
   border: none;
-  border-radius: 0.5rem;
-  color: var(--white);
-  font-weight: 500;
+  border-radius: 8px;
+  color: #ef4444;
   cursor: pointer;
-  transition: all 0.2s ease;
-  overflow: hidden;
+  transition: var(--transition);
 }
 
 .logoutButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #fee2e2;
 }
 
-.logoutText {
-  margin-left: 0.75rem;
-  transition: opacity 0.3s ease;
-}
-
-.sidebarCollapsed .logoutText {
-  opacity: 0;
-  width: 0;
-}
-
-/* Top Navbar Styles */
-.topNavbar {
-  position: sticky;
-  top: -1px;
-  left: 0;
-  right: 0;
-  z-index: 90;
-  background-color: var(--white);
-  padding: 0 2rem;
-  height: var(--top-nav-height);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  margin: 0;
-  width: 100%;
-}
-
-.navContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.searchBar {
-  flex: 1;
-  max-width: 500px;
-}
-
-.searchBar input {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--light-gray);
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.searchBar input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
-}
-
-.userProfile {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-left: 1rem;
-}
-
-.userName {
-  font-weight: 500;
-  color: var(--dark);
-}
-
-.avatar {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background-color: var(--primary);
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-
-/* Mobile Menu Toggle */
-.mobileMenuToggle {
+/* Collapsed State */
+.sidebar.collapsed .brand,
+.sidebar.collapsed .menuItem span,
+.sidebar.collapsed .logoutButton span {
   display: none;
-  background: none;
-  border: none;
-  color: var(--dark);
-  margin-right: 1rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
 }
 
-.mobileMenuToggle:hover {
-  background-color: var(--light-gray);
+.sidebar.collapsed .menuItem,
+.sidebar.collapsed .logoutButton {
+  justify-content: center;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Browser Specific Fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  .topNavbar {
-    top: 0;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-}
-
-@supports (-moz-appearance: none) {
-  .topNavbar {
-    top: -0.1px;
-  }
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .mainContent {
-    margin-left: 0 !important;
+/* Responsive */
+@media (max-width: 1024px) {
+  .mainNav {
+    display: none;
   }
   
-  .mobileMenuToggle {
+  .menuButton {
     display: block;
   }
-  
-  .searchBar {
-    margin-left: 1rem;
-  }
 }
 
-/* Ensure no pseudo-element gaps */
-body::before,
-body::after,
-.topNavbar::before,
-.topNavbar::after {
-  content: none !important;
-  display: none !important;
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+  }
+  
+  .sidebar.collapsed {
+    width: 60px;
+  }
 }

@@ -1,97 +1,68 @@
 import React from 'react';
-import contact from '../contact/contact.jsx';
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
-import { Link, useLocation } from 'react-router-dom';
-import { 
+import { Link } from 'react-router-dom';
+import {
   FiHome,
   FiPlusSquare,
   FiDollarSign,
   FiUser,
+  FiMail,
+  FiLogOut,
   FiChevronLeft,
   FiChevronRight,
-  FiLogOut
+  FiX
 } from 'react-icons/fi';
-import { FiMail } from 'react-icons/fi';
-// import "react-pro-sidebar/dist/css/react-pro-sidebar.css";
-// import 'react-pro-sidebar/dist/styles.css';
 import styles from './Dashboard.module.css';
 
-const SidebarMenu = ({ collapsed, isMobileOpen, onCollapse }) => {
-  const location = useLocation();
+const SidebarMenu = ({ isOpen, collapsed, onClose, toggleCollapse }) => {
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    window.location.href = '/login';
+  };
 
   return (
-    <Sidebar 
-      collapsed={collapsed}
-      toggled={isMobileOpen}
-      onToggle={() => onCollapse(!collapsed)}
-      breakPoint="md"
-      width="250px"
-      collapsedWidth="80px"
-      className={`${styles.sidebar} ${isMobileOpen ? styles.mobileOpen : ''}`}
-    >
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''} ${collapsed ? styles.collapsed : ''}`}>
       <div className={styles.sidebarHeader}>
-        <button 
-          onClick={() => onCollapse(!collapsed)}
-          className={styles.collapseButton}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {collapsed ? <FiChevronRight /> : <FiChevronLeft />}
-        </button>
-        {!collapsed && <h3>AuctionHub</h3>}
+        {!collapsed && <h2 className={styles.brand}>Menu</h2>}
+        <div className={styles.sidebarControls}>
+          <button onClick={toggleCollapse} className={styles.collapseButton}>
+            {collapsed ? <FiChevronRight size={20} /> : <FiChevronLeft size={20} />}
+          </button>
+          <button onClick={onClose} className={styles.closeButton}>
+            <FiX size={20} />
+          </button>
+        </div>
       </div>
 
-      <Menu iconShape="square" popperArrow={true}>
-        <MenuItem 
-          icon={<FiHome />}
-          active={location.pathname === '/dashboard'}
-          component={<Link to="/dashboard" className={styles.menuLink} />}
-        >
-          Dashboard
-        </MenuItem>
-        <MenuItem 
-          icon={<FiPlusSquare />}
-          active={location.pathname === '/dashboard/create-auction'}
-          component={<Link to="/dashboard/create-auction" className={styles.menuLink} />}
-        >
-          Create Auction
-        </MenuItem>
-        <MenuItem 
-          icon={<FiDollarSign />}
-          active={location.pathname === '/dashboard/participate'}
-          component={<Link to="/dashboard/participate" className={styles.menuLink} />}
-        >
-          Participate
-        </MenuItem>
-        <MenuItem 
-          icon={<FiUser />}
-          active={location.pathname === '/dashboard/profile'}
-          component={<Link to="/dashboard/profile" className={styles.menuLink} />}
-        >
-          Profile
-        </MenuItem>
-        <MenuItem 
-            icon={<FiMail />}
-            active={location.pathname === 'D:\know\practice\OAS\frontend\src\components\pages\contact\contact.jsx'}
-            component={<Link to={{contact}} className={styles.menuLink} />}
-          >
-            Contact
-        </MenuItem>
-      </Menu>
+      <nav className={styles.menuContainer}>
+        <Link to="/dashboard" className={styles.menuItem} onClick={onClose}>
+          <FiHome className={styles.menuIcon} />
+          {!collapsed && <span>Dashboard</span>}
+        </Link>
+        <Link to="/dashboard/create-auction" className={styles.menuItem} onClick={onClose}>
+          <FiPlusSquare className={styles.menuIcon} />
+          {!collapsed && <span>Create Auction</span>}
+        </Link>
+        <Link to="/dashboard/participate" className={styles.menuItem} onClick={onClose}>
+          <FiDollarSign className={styles.menuIcon} />
+          {!collapsed && <span>Participate</span>}
+        </Link>
+        <Link to="/dashboard/profile" className={styles.menuItem} onClick={onClose}>
+          <FiUser className={styles.menuIcon} />
+          {!collapsed && <span>Profile</span>}
+        </Link>
+        <Link to="/dashboard/Dashboardcontact" className={styles.menuItem} onClick={onClose}>
+          <FiMail className={styles.menuIcon} />
+          {!collapsed && <span>Contact</span>}
+        </Link>
+      </nav>
 
       <div className={styles.sidebarFooter}>
-        <button 
-          onClick={() => {
-            localStorage.removeItem('authToken');
-            window.location.href = '/login';
-          }}
-          className={styles.logoutButton}
-          aria-label="Logout"
-        >
-          <FiLogOut />
+        <button onClick={handleLogout} className={styles.logoutButton}>
+          <FiLogOut className={styles.menuIcon} />
           {!collapsed && <span>Logout</span>}
         </button>
       </div>
-    </Sidebar>
+    </aside>
   );
 };
 

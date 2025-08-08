@@ -1,63 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import SidebarMenu from './SidebarMenu.jsx';
 import TopNavbar from './TopNavbar';
+import SidebarMenu from './SidebarMenu';
 import styles from './Dashboard.module.css';
 
 const DashboardLayout = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  // Check for mobile view
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Initial check
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const toggleSidebar = () => {
-    if (isMobile) {
-      setMobileSidebarOpen(!mobileSidebarOpen);
-    } else {
-      setSidebarCollapsed(!sidebarCollapsed);
-    }
-  };
-
-  const handleCollapse = (collapsed) => {
-    if (!isMobile) {
-      setSidebarCollapsed(collapsed);
-    }
-  };
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const toggleCollapse = () => setSidebarCollapsed(!sidebarCollapsed);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <div className={styles.dashboardContainer}>
-      <SidebarMenu 
-        collapsed={isMobile ? false : sidebarCollapsed}
-        isMobileOpen={mobileSidebarOpen}
-        onCollapse={handleCollapse}
-      />
-      <div className={`
-        ${styles.mainContent} 
-        ${sidebarCollapsed ? styles.sidebarCollapsed : ''}
-        ${isMobile && mobileSidebarOpen ? styles.mobileSidebarOpen : ''}
-      `}>
-        <TopNavbar toggleSidebar={toggleSidebar} />
-        <main className={styles.pageContent}>
-          <Outlet />
-        </main>
-      </div>
+      <TopNavbar toggleSidebar={toggleSidebar} />
       
-      {/* Overlay for mobile when sidebar is open */}
-      {isMobile && mobileSidebarOpen && (
-        <div 
-          className={styles.mobileOverlay}
-          onClick={() => setMobileSidebarOpen(false)}
-        />
+      <main className={styles.pageContent}>
+        <Outlet />
+      </main>
+
+      <SidebarMenu 
+        isOpen={sidebarOpen}
+        collapsed={sidebarCollapsed}
+        onClose={closeSidebar}
+        toggleCollapse={toggleCollapse}
+      />
+
+      {sidebarOpen && (
+        <div className={styles.mobileOverlay} onClick={closeSidebar} />
       )}
     </div>
   );

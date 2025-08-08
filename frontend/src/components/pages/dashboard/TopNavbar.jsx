@@ -1,30 +1,51 @@
 import React from 'react';
-import { FiMenu } from 'react-icons/fi';
+import { 
+  FiHome,
+  FiPlusSquare,
+  FiDollarSign,
+  FiUser,
+  FiMail,
+  FiMenu
+} from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import styles from './Dashboard.module.css';
 
 const TopNavbar = ({ toggleSidebar }) => {
   return (
-    // <nav className={styles.topNavbar}>
-    //   <div className={styles.navContent}>
-    //     <button 
-    //       className={styles.mobileMenuToggle}
-    //       onClick={toggleSidebar}
-    //       aria-label="Toggle menu"
-    //     >
-    //       <FiMenu size={20} />
-    //     </button>
-        
-    //     <div className={styles.searchBar}>
-    //       <input type="text" placeholder="Search auctions..." />
-    //     </div>
-        
-    //     <div className={styles.userProfile}>
-    //       <span className={styles.userName}>user</span>
-    //       <div className={styles.avatar}>img</div>
-    //     </div>
-    //   </div>
-    // </nav>
-    <h1>hello</h1>
+    <header className={styles.topNavbar}>
+      <div className={styles.logo}>AuctionHub</div>
+
+      <div className={styles.searchContainer}>
+        <input
+          className={styles.searchInput}
+          type="search"
+          placeholder="Search auctions, items or users..."
+        />
+      </div>
+
+      <div className={styles.mainNav}>
+        <Link to="/dashboard" className={styles.navIcon}>
+          <FiHome size={20} />
+          <span>Home</span>
+        </Link>
+        <Link to="/dashboard/create-auction" className={styles.navIcon}>
+          <FiPlusSquare size={20} />
+          <span>Create</span>
+        </Link>
+        <Link to="/dashboard/participate" className={styles.navIcon}>
+          <FiDollarSign size={20} />
+          <span>Bid</span>
+        </Link>
+        <Link to="/dashboard/profile" className={styles.navIcon}>
+          <FiUser size={20} />
+          <span>Profile</span>
+        </Link>
+      </div>
+
+      <button className={styles.menuButton} onClick={toggleSidebar}>
+        <FiMenu size={24} />
+      </button>
+    </header>
   );
 };
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +10,8 @@ const CreateAuction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   
+  const API = import.meta.env.VITE_API_URL;
+
   const [auction, setAuction] = useState({
     title: '',
     description: '',
@@ -59,6 +63,8 @@ const CreateAuction = () => {
       setError('Maximum 5 images allowed');
       return;
     }
+
+
 
     const newImages = [];
     const newPreviews = [];
@@ -122,6 +128,7 @@ const CreateAuction = () => {
     }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -142,24 +149,9 @@ const CreateAuction = () => {
         throw new Error('Reserve price must be higher than starting price');
       }
 
-      // Mock API call - replace with real API in production
-      const mockResponse = await new Promise(resolve => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              success: true,
-              auction: {
-                ...auction,
-                id: Math.random().toString(36).substr(2, 9),
-                createdAt: new Date().toISOString(),
-                currentBid: auction.startingPrice,
-                bids: [],
-                status: 'active'
-              }
-            }
-          });
-        }, 1000);
-      });
+
+      
+      const mockResponse =  await axios.post(`${API}/CreateAuction`, auction);
 
       console.log('Auction created:', mockResponse.data.auction);
       alert('Auction created successfully!');
@@ -398,6 +390,7 @@ const CreateAuction = () => {
           type="submit"
           className={styles.submitButton}
           disabled={isLoading}
+          onClick={handleSubmit}
         >
           {isLoading ? 'Creating Auction...' : 'Create Auction'}
         </button>

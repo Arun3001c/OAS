@@ -14,7 +14,7 @@ import CreateAuction from './components/pages/dashboard/pages/CreateAuction.jsx'
 import Participate from './components/pages/dashboard/pages/Participate.jsx';
 import Profile from './components/pages/dashboard/pages/Profile.jsx';
 import { useAuth } from './context/AuthContext.jsx';
-
+import Dashboardcontact from './components/pages/dashboard/pages/Dashboardcontact.jsx';
 function App() {
   const { user, logout } = useAuth();
   const isLoggedIn = !!user;
@@ -64,6 +64,8 @@ function App() {
           <Route path="create-auction" element={<CreateAuction />} />
           <Route path="participate" element={<Participate />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="Dashboardcontact" element={<Dashboardcontact />} />
+
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
